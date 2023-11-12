@@ -4,20 +4,28 @@ public class Veiculo {
 
     public int ID;
     public String modelo;
-    public String cor;
+    public String placa;
     public int numeroEixos;
     public double carga;
 
-    public Veiculo(int ID, String modelo, String cor, int numeroEixos, double carga) {
+    public Veiculo(int ID, String modelo, int numeroEixos, double carga, String placa) {
         this.ID = ID;
         this.modelo = modelo;
-        this.cor = cor;
         this.numeroEixos = numeroEixos;
         this.carga = carga;
+        this.placa = placa;
     }
 
     public Veiculo() {
 
+    }
+
+    public String getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
     }
 
     public int getID() {
@@ -35,15 +43,6 @@ public class Veiculo {
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
-
-    public String getCor() {
-        return cor;
-    }
-
-    public void setCor(String cor) {
-        this.cor = cor;
-    }
-
     public int getNumeroEixos() {
         return numeroEixos;
     }
