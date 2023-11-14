@@ -2,11 +2,11 @@ package org.example.models;
 
 public class Veiculo {
 
-    public int ID;
-    public String modelo;
-    public String placa;
-    public int numeroEixos;
-    public double carga;
+    private int ID;
+    private String modelo;
+    private String placa;
+    private int numeroEixos;
+    private double carga;
 
     public Veiculo(int ID, String modelo, int numeroEixos, double carga, String placa) {
         this.ID = ID;

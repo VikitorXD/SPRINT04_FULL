@@ -22,10 +22,10 @@ public class UserResource {
     }
 
     @GET
-    @Path("{CPF}")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public User getUserBynome(@PathParam("CPF") String CPF) throws SQLException {
-        return repository.findby(CPF).orElse(null);
+    public User getUserBynome(@PathParam("id") int id) throws SQLException {
+        return repository.findby(id).orElse(null);
     }
 
     @POST
@@ -40,7 +40,7 @@ public class UserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateuser(@PathParam("id") int id, User user) throws SQLException {
-        if (repository.find(id).isPresent()) {
+        if (repository.findby(id).isPresent()) {
             user.setId(id);
             repository.update(user);
             return Response.status(Response.Status.CREATED).entity(user).build();
@@ -49,9 +49,9 @@ public class UserResource {
     }
 
     @DELETE
-    @Path("{cpf}")
-    public void deleteCard(@PathParam("cpf") String cpf) throws SQLException {
-        repository.delete(cpf);
+    @Path("{placa}")
+    public void delete(@PathParam("placa") String placa) throws SQLException {
+        repository.delete(placa);
     }
 
 }

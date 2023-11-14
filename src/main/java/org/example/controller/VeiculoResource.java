@@ -47,4 +47,10 @@ public class VeiculoResource {
         }
         return Response.status(Response.Status.NOT_FOUND).entity(veiculo).build();
     }
+
+    @DELETE
+    @Path("{cpf}")
+    public void deleteCard(@PathParam("cpf") String cpf) throws SQLException {
+        repository.delete(cpf);
+    }
 }

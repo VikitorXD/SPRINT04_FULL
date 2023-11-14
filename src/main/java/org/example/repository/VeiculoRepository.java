@@ -125,4 +125,16 @@ public class VeiculoRepository {
         return Optional.empty();
     }
 
+    public void delete(String placa) {
+        String sql = "DELETE FROM VEICULO WHERE PLACAVEICULO = ?";
+
+        try {
+            var conn = DatabaseFactory.getConnection();
+            var statement = conn.prepareStatement(sql);
+            statement.setString(1, placa);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

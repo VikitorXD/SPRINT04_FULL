@@ -3,6 +3,7 @@ package org.example.repository;
 import org.example.Infraestructure.DatabaseFactory;
 import org.example.models.User;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,14 +35,14 @@ public class UserRepository {
         return user;
     }
 
-    public Optional<User> findby(String CPF) throws SQLException {
-        var sql = "SELECT * FROM USUARIO WHERE CPF = ?";
+    public Optional<User> findby(int id) throws SQLException {
+        var sql = "SELECT * FROM USUARIO WHERE IDCLIENTE = ?";
 
 
         try {
             var conn = DatabaseFactory.getConnection();
             var statement = conn.prepareStatement(sql);
-            statement.setString(1, CPF);
+            statement.setInt(1, id);
             try {
                 ResultSet rs = statement.executeQuery();
                 if (rs.next()) {
@@ -85,7 +86,7 @@ public class UserRepository {
     }
 
 
-    public User update(User usuario) throws SQLException {
+    public User updater(User usuario) throws SQLException {
 
         var sql = "UPDATE USUARIO SET NOME = ?, TELEFONE = ?, EMAIL = ?, SENHA = ?, CPF = ?, CNH = ? WHERE IDCLIENTE = ?";
         try {
@@ -99,6 +100,26 @@ public class UserRepository {
             statement.setString(6, usuario.getCnh());
             statement.setString(7, usuario.getCnh());
             statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return usuario;
+    }
+
+    public User update(User usuario) throws SQLException {
+        PreparedStatement ps = null;
+
+        try {
+            var sql = "UPDATE USUARIO SET NOME = ?, TELEFONE = ?, EMAIL = ?, SENHA = ?, CPF = ?, CNH = ? WHERE IDCLIENTE = ?";
+            var conn = DatabaseFactory.getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, usuario.getNome());
+            ps.setString(2, usuario.getTelefone());
+            ps.setString(3, usuario.getEmail());
+            ps.setString(4, usuario.getSenha());
+            ps.setString(5, usuario.getCpf());
+            ps.setString(6, usuario.getCnh());
+            ps.setInt(7, usuario.getId());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
